@@ -12,7 +12,10 @@ export default class ApiStack extends sst.Stack {
     this.api = new sst.Api(this, 'Api', {
       defaultAuthorizationType: 'AWS_IAM',
       defaultFunctionProps: {
-        environment: { TABLE_NAME: table.tableName },
+        environment: { 
+          TABLE_NAME: table.tableName,
+          STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+        },
       },
       routes: {
         'POST /notes': 'src/create.main',
@@ -20,6 +23,7 @@ export default class ApiStack extends sst.Stack {
         'DELETE /notes/{id}': 'src/delete.main',
         'GET /notes/{id}': 'src/get.main',
         'GET /notes': 'src/list.main',
+        'POST /billing': 'src/billing.main',
       },
     });
 
