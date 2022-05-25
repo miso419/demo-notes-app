@@ -10,6 +10,7 @@ export default class ApiStack extends sst.Stack {
 
     // Creat an API
     this.api = new sst.Api(this, 'Api', {
+      cors: true,
       defaultAuthorizationType: 'AWS_IAM',
       defaultFunctionProps: {
         environment: { 
